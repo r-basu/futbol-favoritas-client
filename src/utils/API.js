@@ -34,15 +34,6 @@ const API = {
             }
         })
     },
-    getAllTanks:()=>{
-        return fetch(`${URL_PREFIX}/api/tanks`).then(res=>{
-            if(res.ok){
-                return res.json()
-            } else {
-                throw new Error("network request failed")
-            }
-        })
-    },
 }
 
 export default API
