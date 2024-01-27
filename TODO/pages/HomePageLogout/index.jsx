@@ -1,35 +1,36 @@
-import LoginButton from "../../../components/LoginButton";
+import LogoutButton from "../../components/LogoutButton";
 import CompetitionSearch from "./components/CompetitionSearch";
 
-export default function CompetitionPageLogin() {
+export default function HomePageLogout() {
     <div>
     <header>
-      <LoginButton />
-      <h1>Competition Name</h1>
+      <LogoutButton />
+      <h1>Futbol Favoritas</h1>
     </header>
+      <p>Favorites</p>
       <div>
-        <h2>Matches Remaining:</h2> 
+        <h2>Pinned Players</h2> 
         <div>
            Items here:
            <ul>
            </ul>
         </div>
+        <input type="text" placeholder="Player Search"></input>
       </div>
       <div>
-        <h2>League Table:</h2>
+        <h2>Pinned Clubs</h2> 
         <div>
            Items here:
            <ul>
            </ul>
         </div>
+        <input type="text" placeholder="Club Search"></input>
+      </div>
+      <div>
+        <h2>Feed:</h2>
       </div>
       <div>
         <h2>Upcoming Games:</h2>
-        <div>
-           Items here:
-           <ul>
-           </ul>
-        </div>
       </div>
       <CompetitionSearch />
   </div>

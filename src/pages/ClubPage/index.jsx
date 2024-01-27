@@ -4,12 +4,13 @@ import { useParams } from "react-router-dom";
 export default function ClubPage() {
   const { id } = useParams();
   const [clubData, setClubData] = useState(null);
-  console.log(id)
 
   useEffect(() => {
     const fetchClubData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/clubs/${id}`);
+        const response = await fetch(
+          `http://localhost:3000/api/clubs/club/${id}`
+        );
         const data = await response.json();
         setClubData(data);
       } catch (error) {

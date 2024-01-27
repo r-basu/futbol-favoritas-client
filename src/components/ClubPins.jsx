@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 export default function ClubPage(props) {
   const [clubsData, setClubsData] = useState([]);
@@ -12,7 +12,7 @@ export default function ClubPage(props) {
           },
         });
         console.log(localStorage.getItem("id_token"));
-        console.log("token from clubpage");
+        console.log("token from localstorage");
         const data = await response.json();
         setClubsData(data);
       } catch (error) {

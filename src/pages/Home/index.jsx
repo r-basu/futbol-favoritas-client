@@ -1,4 +1,5 @@
 import ClubPins from "../../components/ClubPins";
+import CompetitionDropdownForm from "../../components/CompetitionSearch";
 import DropdownForm from "../../components/DropdownForm";
 
 export default function Home(props) {
@@ -6,6 +7,7 @@ export default function Home(props) {
     <div>
       <h1>Home Page</h1>
       <ClubPins />
+      <CompetitionDropdownForm />
       <DropdownForm />
     </div>
   );
