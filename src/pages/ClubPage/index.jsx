@@ -1,50 +1,35 @@
-import LogoutButton from "../../components/LogoutButton";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-export default function ClubPage2() {
+export default function ClubPage() {
+  const { id } = useParams();
+  const [clubData, setClubData] = useState(null);
+  console.log(id)
+
+  useEffect(() => {
+    const fetchClubData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/clubs/${id}`);
+        const data = await response.json();
+        setClubData(data);
+      } catch (error) {
+        console.log("Error fetching club data:", error);
+      }
+    };
+
+    fetchClubData();
+  }, [id]);
+
+  if (!clubData) {
+    return <div>Loading...</div>;
+  }
+
+  return (
     <div>
-    <header>
-      <LogoutButton />
-      <h1>Club Name</h1>
-    </header>
-      <div>
-        <ul>
-            <li>Last 10 Games:</li>
-            <li>League Table Position</li>
-            <li>Season Progress:</li>
-        </ul>
-      </div>
-      <div>
-        <h2>Squad:</h2>
-        <div>
-           Items here:
-           <ul>
-           </ul>
-        </div>
-      </div>
-      <div>
-        <h2>Recent Games:</h2>
-        <div>
-           Items here:
-           <ul>
-           </ul>
-        </div>
-      </div>
-      <div>
-        <h2>League Table:</h2>
-        <div>
-           Items here:
-           <ul>
-           </ul>
-        </div>
-      </div>
-      <div>
-        <h2>Upcoming Games:</h2>
-        <div>
-           Items here:
-           <ul>
-           </ul>
-        </div>
-      </div>
-      <button>View Player Cup(s) Progress</button>
-  </div>
-};
+      <h1>{clubData.name}</h1>
+      <p>Founded: {clubData.founded}</p>
+      <p>Stadium: {clubData.venue}</p>
+      {/* Add more club data as needed */}
+    </div>
+  );
+}

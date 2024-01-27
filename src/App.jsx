@@ -3,6 +3,7 @@ import API from "./utils/API";
 import { useState } from "react";
 import Home from "./pages/Home";
 import AuthForm from "./pages/AuthForm"
+import ClubPage from "./pages/ClubPage"
 
 function App() {
   const [token, setToken] = useState("");
@@ -43,7 +44,7 @@ function App() {
 {/* <NavBar/> */}
   <Routes>
     <Route path="/" element={<Home/>}/>
-    {/* <Route path="/clubs" element={<ClubPage/>}/> */}
+    <Route path="/clubs/:id" element={<ClubPage/>}/>
     <Route path="/login" element={<AuthForm type="login" handleSubmit={handleLogin}/>}/>
     <Route path="/signup" element={<AuthForm type="signup" handleSubmit={handleSignup}/>}/>
   </Routes>
