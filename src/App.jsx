@@ -4,6 +4,7 @@ import { useState } from "react";
 import Home from "./pages/Home";
 import AuthForm from "./pages/AuthForm";
 import ClubPage from "./pages/ClubPage";
+import NavBar from "./components/NavBar.jsx";
 
 function App() {
   const [token, setToken] = useState("");
@@ -39,7 +40,7 @@ function App() {
   return (
     <>
       <Router>
-        {/* <NavBar/> */}
+        <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/clubs/:id" element={<ClubPage />} />
