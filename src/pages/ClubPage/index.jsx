@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
-const ClubPage = () => {
+export default function ClubPage(props) {
   const [clubsData, setClubsData] = useState([]);
-
+  console.log(props)
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/clubs/pins');
+        const response = await fetch('http://localhost:3000/api/clubs/pins', {
+          headers: {
+            "Authorization":`Bearer ${localStorage.getItem('id_token')}`
+          }
+        });
+        console.log(localStorage.getItem('id_token'))
+        console.log("token from clubpage")
         const data = await response.json();
         setClubsData(data);
       } catch (error) {
@@ -32,4 +38,4 @@ const ClubPage = () => {
   );
 };
 
-export default ClubPage;
+

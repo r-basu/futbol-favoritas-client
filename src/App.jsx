@@ -1,8 +1,9 @@
 import {Route,BrowserRouter as Router, Routes} from "react-router-dom";
 import ClubPage from "./pages/ClubPage";
-// import API from "./utils/API";
-// import { useState } from "react";
+import API from "./utils/API";
+import { useState } from "react";
 import DropdownForm from "./components/DropdownForm";
+import AuthForm from "./pages/AuthForm"
 
 function App() {
   const [token, setToken] = useState("");
@@ -11,6 +12,9 @@ function App() {
   const handleLogin = loginObj=>{
     API.login(loginObj).then(loginData=>{
       setToken(loginData.token);
+      console.log(loginData.token)
+      localStorage.setItem('id_token', loginData.token)
+      console.log("token from app.jsx")
       setIsLoggedIn(true);
       setUserId(loginData.user.id)
     }).catch(err=>{
@@ -20,6 +24,7 @@ function App() {
   const handleSignup = signupObj=>{
     API.signup(signupObj).then(loginData=>{
       setToken(loginData.token);
+      localStorage.setItem('id_token', loginData.token)
       setIsLoggedIn(true);
       setUserId(loginData.user.id)
     }).catch(err=>{
@@ -39,12 +44,12 @@ function App() {
 {/* <NavBar/> */}
   <Routes>
     <Route path="/" element={<DropdownForm/>}/>
-    <Route path="/account" element={<Account/>}/>
-    <Route path="/clubs" element={<ClubPage/>}/>
-    <Route path="/competitions" element={<CompetitionPageLogin/>}/>
+    {/* <Route path="/account" element={<Account/>}/> */}
+    <Route path="/clubs" element={<ClubPage token={token}/>}/>
+    {/* <Route path="/competitions" element={<CompetitionPageLogin/>}/> */}
     <Route path="/login" element={<AuthForm type="login" handleSubmit={handleLogin}/>}/>
     <Route path="/signup" element={<AuthForm type="signup" handleSubmit={handleSignup}/>}/>
-    <Route path="/players" element={<PlayerPage/>}/>
+    {/* <Route path="/players" element={<PlayerPage/>}/> */}
   </Routes>
 </Router>
 </>
