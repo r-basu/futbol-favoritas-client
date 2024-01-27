@@ -1,10 +1,10 @@
-import LoginButton from "../../components/LoginButton";
+import LogoutButton from "../../../components/LogoutButton";
 import CompetitionSearch from "./components/CompetitionSearch";
 
-export default function CompetitionPageLogin() {
+export default function CompetitionPageLogout() {
     <div>
     <header>
-      <LoginButton />
+      <LogoutButton />
       <h1>Competition Name</h1>
     </header>
       <div>

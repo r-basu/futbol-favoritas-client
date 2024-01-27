@@ -1,0 +1,12 @@
+import ClubPins from "../../components/ClubPins";
+import DropdownForm from "../../components/DropdownForm";
+
+export default function Home(props) {
+  return (
+    <div>
+      <h1>Home Page</h1>
+      <ClubPins />
+      <DropdownForm />
+    </div>
+  );
+}

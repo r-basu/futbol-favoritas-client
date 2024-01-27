@@ -1,8 +1,7 @@
 import {Route,BrowserRouter as Router, Routes} from "react-router-dom";
-import ClubPage from "./pages/ClubPage";
 import API from "./utils/API";
 import { useState } from "react";
-import DropdownForm from "./components/DropdownForm";
+import Home from "./pages/Home";
 import AuthForm from "./pages/AuthForm"
 
 function App() {
@@ -43,13 +42,10 @@ function App() {
 <Router>
 {/* <NavBar/> */}
   <Routes>
-    <Route path="/" element={<DropdownForm/>}/>
-    {/* <Route path="/account" element={<Account/>}/> */}
-    <Route path="/clubs" element={<ClubPage token={token}/>}/>
-    {/* <Route path="/competitions" element={<CompetitionPageLogin/>}/> */}
+    <Route path="/" element={<Home/>}/>
+    {/* <Route path="/clubs" element={<ClubPage/>}/> */}
     <Route path="/login" element={<AuthForm type="login" handleSubmit={handleLogin}/>}/>
     <Route path="/signup" element={<AuthForm type="signup" handleSubmit={handleSignup}/>}/>
-    {/* <Route path="/players" element={<PlayerPage/>}/> */}
   </Routes>
 </Router>
 </>
