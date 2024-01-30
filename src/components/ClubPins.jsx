@@ -26,14 +26,11 @@ export default function ClubPage(props) {
   useEffect(() => {
     const fetchUpdatedData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/clubs/pins",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("id_token")}`,
-            },
-          }
-        );
+        const response = await fetch("http://localhost:3000/api/clubs/pins", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("id_token")}`,
+          },
+        });
         const data = await response.json();
         setClubsData(data);
       } catch (error) {
@@ -43,10 +40,32 @@ export default function ClubPage(props) {
 
     const interval = setInterval(() => {
       fetchUpdatedData();
-    }, 1000); // Fetch updated data every 5 seconds
+    }, 1000); // Fetch updated data every 1 seconds
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleDelete = async (clubId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/clubs/pins/club/${clubId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("id_token")}`,
+          },
+        }
+      );
+      if (response.ok) {
+        // Remove the deleted club from the clubsData state
+        setClubsData(clubsData.filter((club) => club.dbClubId !== clubId));
+      } else {
+        console.log("Error deleting club:", response.status);
+      }
+    } catch (error) {
+      console.log("Error deleting club:", error);
+    }
+  };
 
   return (
     <div>
@@ -61,6 +80,11 @@ export default function ClubPage(props) {
             <tr key={club.dbClubId}>
               <td>
                 <Link to={`/clubs/${club.dbClubId}`}>{club.dbClubName}</Link>
+              </td>
+              <td>
+                <button onClick={() => handleDelete(club.dbClubId)}>
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

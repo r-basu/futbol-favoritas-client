@@ -49,7 +49,7 @@ export default function Home(props) {
     const selectedOption = event.target.options[event.target.selectedIndex];
     const selectedClubName = selectedOption.textContent;
     try {
-      const response = await fetch("http://localhost:3000/api/clubs/dbClubs", {
+      const response = await fetch("http://localhost:3000/api/clubs/pins/club", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
