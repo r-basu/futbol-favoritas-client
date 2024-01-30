@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { CompetitionDropdown } from "./CompetitionDropdown"
 
-function DropdownForm() {
+export default function TeamDropdown() {
   const [clubs, setClubs] = useState([]);
   const [selectedClub, setSelectedClub] = useState("");
 
-  useEffect(() => {
-    fetchClubs();
-  }, []);
+  const { selectedCompetition } = useContext(CompetitionDropdown)
 
-  const fetchClubs = async () => {
+  useEffect(() => {
+    fetchCompetitionTeams();
+  }, [selectedCompetition]);
+
+  const fetchCompetitionTeams = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/clubs/teams");
+      const response = await fetch(`http://localhost:3000/api/clubs/competitionTeams/${selectedCompetition}`);
       const data = await response.json();
       setClubs(data);
     } catch (error) {
@@ -51,5 +54,3 @@ function DropdownForm() {
     </div>
   );
 }
-
-export default DropdownForm;

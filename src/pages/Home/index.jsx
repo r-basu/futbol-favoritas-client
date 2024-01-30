@@ -1,14 +1,14 @@
 import ClubPins from "../../components/ClubPins";
-import CompetitionDropdownForm from "../../components/CompetitionSearch";
-import DropdownForm from "../../components/DropdownForm";
+import CompetitionDropdown from "../../components/CompetitionDropdown";
+import TeamDropdown from "../../components/TeamDropdown";
 
 export default function Home(props) {
   return (
     <div>
       <h1>Home Page</h1>
       <ClubPins />
-      <CompetitionDropdownForm />
-      <DropdownForm />
+      <CompetitionDropdown />
+      <TeamDropdown />
     </div>
   );
 }

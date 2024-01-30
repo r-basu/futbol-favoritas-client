@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function CompetitionDropdownForm() {
+export default function CompetitionDropdown() {
   const [competitions, setCompetitions] = useState([]);
   const [selectedCompetition, setSelectedCompetition] = useState("");
 
@@ -29,10 +29,17 @@ function CompetitionDropdownForm() {
       <label htmlFor="competition">
         Select a competition to choose your team from to pin:
       </label>
-      <select id="competition" value={selectedCompetition} onChange={handleCompetitionChange}>
+      <select
+        id="competition"
+        value={selectedCompetition}
+        onChange={handleCompetitionChange}
+      >
         <option value="">Select</option>
         {competitions.map((competition) => (
-          <option key={competition.apiCompetitionId} value={competition.apiCompetitionId}>
+          <option
+            key={competition.apiCompetitionId}
+            value={competition.apiCompetitionId}
+          >
             {competition.apiCompetitionName}
           </option>
         ))}
@@ -40,5 +47,3 @@ function CompetitionDropdownForm() {
     </div>
   );
 }
-
-export default CompetitionDropdownForm;
