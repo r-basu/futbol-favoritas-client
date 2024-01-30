@@ -32,10 +32,10 @@ export default function ClubPage(props) {
           </tr>
         </thead>
         <tbody>
-          {clubsData.map((club, index) => (
-            <tr key={index}>
+          {clubsData.map((club) => (
+            <tr key={club.dbClubId}>
               <td>
-                <Link to={`/clubs/${club.id}`}>{club.name}</Link>
+                <Link to={`/clubs/${club.dbClubId}`}>{club.dbClubName}</Link>
               </td>
             </tr>
           ))}

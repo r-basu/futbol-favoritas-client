@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 export default function TeamDropdown(props) {
   const [clubs, setClubs] = useState([]);
@@ -10,7 +10,9 @@ export default function TeamDropdown(props) {
 
   const fetchCompetitionTeams = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/clubs/competitionTeams/${props.selectedCompetition}`);
+      const response = await fetch(
+        `http://localhost:3000/api/clubs/competitionTeams/${props.selectedCompetition}`
+      );
       const data = await response.json();
       setClubs(data);
     } catch (error) {
@@ -20,14 +22,19 @@ export default function TeamDropdown(props) {
 
   const handleClubChange = async (event) => {
     setSelectedClub(event.target.value);
+    const selectedOption = event.target.options[event.target.selectedIndex]
+    const selectedClubName = selectedOption.textContent
     try {
-      const response = await fetch("http://localhost:3000/api/clubs/teams", {
+      const response = await fetch("http://localhost:3000/api/clubs/dbClubs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("id_token")}`,
         },
-        body: JSON.stringify({ selectedClub: event.target.value }),
+        body: JSON.stringify({
+          selectedClubId: event.target.value,
+          selectedClubName: selectedClubName,
+        }),
       });
       const data = await response.json();
       console.log("Result:", data);
