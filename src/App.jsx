@@ -16,13 +16,12 @@ function App() {
       .then((loginData) => {
         setToken(loginData.token);
         console.log(loginData.token);
-        console.log("token from app.jsx, saved to localstorage");
         localStorage.setItem("id_token", loginData.token);
         setIsLoggedIn(true);
         setUserId(loginData.user.id);
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log("Login Error", err);
       });
   };
 
@@ -40,8 +39,8 @@ function App() {
   };
 
   const handleLogout = () => {
-
-    API.logout()
+    const jwtToken = localStorage.getItem("id_token");
+    API.logout(jwtToken)
       .then(() => {
         localStorage.removeItem("id_token");
         setToken("");
@@ -69,7 +68,7 @@ function App() {
             path="/signup"
             element={<AuthForm type="signup" handleSubmit={handleSignup} />}
           />
-          <Route path="/logout" element={<handleLogout/>}/>
+          <Route element={<handleLogout/>}/>
         </Routes>
       </Router>
     </>
