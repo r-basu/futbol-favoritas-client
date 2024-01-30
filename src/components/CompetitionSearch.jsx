@@ -20,18 +20,20 @@ function CompetitionDropdownForm() {
     }
   };
 
-  //CREATE handleChange function and add to return
+  const handleCompetitionChange = async (event) => {
+    setSelectedCompetition(event.target.value);
+  };
 
   return (
     <div>
       <label htmlFor="competition">
         Select a competition to choose your team from to pin:
       </label>
-      <select id="competition" value={selectedCompetition}>
+      <select id="competition" value={selectedCompetition} onChange={handleCompetitionChange}>
         <option value="">Select</option>
         {competitions.map((competition) => (
-          <option key={competition.id} value={competition.id}>
-            {competition.name}
+          <option key={competition.apiCompetitionId} value={competition.apiCompetitionId}>
+            {competition.apiCompetitionName}
           </option>
         ))}
       </select>
