@@ -1,55 +1,16 @@
 import React, { useState, useEffect } from "react";
 
 export default function TeamDropdown(props) {
-  const [clubs, setClubs] = useState([]);
-  const [selectedClub, setSelectedClub] = useState("");
-
-  useEffect(() => {
-    fetchCompetitionTeams();
-  }, [props.selectedCompetition]);
-
-  const fetchCompetitionTeams = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/clubs/competitionTeams/${props.selectedCompetition}`
-      );
-      const data = await response.json();
-      setClubs(data);
-    } catch (error) {
-      console.log("Error fetching clubs:", error);
-    }
-  };
-
-  const handleClubChange = async (event) => {
-    setSelectedClub(event.target.value);
-    const selectedOption = event.target.options[event.target.selectedIndex]
-    const selectedClubName = selectedOption.textContent
-    try {
-      const response = await fetch("http://localhost:3000/api/clubs/dbClubs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("id_token")}`,
-        },
-        body: JSON.stringify({
-          selectedClubId: event.target.value,
-          selectedClubName: selectedClubName,
-        }),
-      });
-      const data = await response.json();
-      console.log("Result:", data);
-      // Handle the response from the backend as needed
-    } catch (error) {
-      console.log("Error creating club:", error);
-    }
-  };
-
   return (
     <div>
       <label htmlFor="club">Select a club to pin:</label>
-      <select id="club" value={selectedClub} onChange={handleClubChange}>
+      <select
+        id="club"
+        value={props.selectedClub}
+        onChange={props.handleClubChange}
+      >
         <option value="">Select</option>
-        {clubs.map((club) => (
+        {props.clubs.map((club) => (
           <option key={club.id} value={club.id}>
             {club.name}
           </option>
