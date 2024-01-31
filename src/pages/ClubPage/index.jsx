@@ -4,12 +4,15 @@ import { useParams } from "react-router-dom";
 export default function ClubPage() {
   const { id } = useParams();
   const [clubData, setClubData] = useState(null);
+  const [clubSched, setClubSched] = useState(null);
+  const [clubSchedLast, setClubSchedLast] = useState(null);
+
 
   useEffect(() => {
     const fetchClubData = async () => {
       try {
         const response = await fetch(
-          `https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/club/${id}`
+          `http://localhost:3000/api/clubs/club/${id}`
         );
         const data = await response.json();
         setClubData(data);
@@ -21,15 +24,60 @@ export default function ClubPage() {
     fetchClubData();
   }, [id]);
 
-  if (!clubData) {
+  useEffect(() => {
+    const fetchClubSched = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/clubs/clubSched/${id}`);
+        const data = await response.json();
+        setClubSched(data);
+        console.log(data);
+      } catch (error) {
+        console.log("Error fetching club schedule:", error);
+      }
+    };
+
+    fetchClubSched();
+  }, [id]);
+
+  useEffect(() => {
+    const fetchClubSchedLast = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/clubs/clubSchedLast/${id}`);
+        const data = await response.json();
+        setClubSchedLast(data);
+        console.log(data);
+      } catch (error) {
+        console.log("Error fetching club schedule:", error);
+      }
+    };
+
+    fetchClubSchedLast();
+  }, [id]);
+
+  if (!clubData || !clubSched || !clubSchedLast) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
+      <img src={clubData.crest} alt="Club Crest" />
       <h1>{clubData.name}</h1>
       <p>Founded: {clubData.founded}</p>
       <p>Stadium: {clubData.venue}</p>
+      <p>Squad:</p>
+      <ul>
+        {clubData.squad.map((player) => (
+          <li key={player.id}>
+            {player.name} - {player.position}
+          </li>
+        ))}
+      </ul>
+      <p>Upcoming Matches:</p>
+      <ul>
+        {clubSched.matches.map((match) => (
+          <li key={match.id}>{match.competition.name}</li>
+        ))}
+      </ul>
       {/* Add more club data as needed */}
     </div>
   );
