@@ -9,7 +9,7 @@ export default function ClubPage() {
     const fetchClubData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/clubs/club/${id}`
+          `https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/club/${id}`
         );
         const data = await response.json();
         setClubData(data);

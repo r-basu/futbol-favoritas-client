@@ -23,28 +23,6 @@ export default function ClubPage(props) {
     fetchData();
   }, [props.selectedClub]);
 
-  useEffect(() => {
-    const fetchUpdatedData = async () => {
-      try {
-        const response = await fetch("https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/pins", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("id_token")}`,
-          },
-        });
-        const data = await response.json();
-        setClubsData(data);
-      } catch (error) {
-        console.log("Error fetching updated club data:", error);
-      }
-    };
-
-    const interval = setInterval(() => {
-      fetchUpdatedData();
-    }, 1000); // Fetch updated data every 1 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
   const handleDelete = async (clubId) => {
     try {
       const response = await fetch(

@@ -7,7 +7,11 @@ export default function Home(props) {
   // COMPETITIONS STATE
   const [competitions, setCompetitions] = useState([]);
   const [selectedCompetition, setSelectedCompetition] = useState("");
+  // CLUB STATE
+  const [clubs, setClubs] = useState([]);
+  const [selectedClub, setSelectedClub] = useState("");
 
+  // COMPETITION LOGIC
   useEffect(() => {
     fetchCompetitions();
   }, []);
@@ -24,10 +28,7 @@ export default function Home(props) {
     }
   };
 
-  //CLUB STATE
-  const [clubs, setClubs] = useState([]);
-  const [selectedClub, setSelectedClub] = useState("");
-
+  // CLUB LOGIC
   useEffect(() => {
     fetchCompetitionTeams();
   }, [selectedCompetition]);
@@ -45,9 +46,9 @@ export default function Home(props) {
   };
 
   const handleClubChange = async (event) => {
-    setSelectedClub(event.target.value);
     const selectedOption = event.target.options[event.target.selectedIndex];
     const selectedClubName = selectedOption.textContent;
+    const eTarget = event.target.value
     try {
       const response = await fetch("https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/pins/club", {
         method: "POST",
@@ -61,6 +62,8 @@ export default function Home(props) {
         }),
       });
       const data = await response.json();
+      setSelectedClub(eTarget);
+      console.log(eTarget)
       console.log("Result:", data);
       // Handle the response from the backend as needed
     } catch (error) {

@@ -1,7 +1,7 @@
 //local
 // const URL_PREFIX = "http://localhost:3000";
 //deployment
-const URL_PREFIX = "https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/"
+const URL_PREFIX = "https://futbol-favoritas-server-9958536b1fa0.herokuapp.com"
 
 const API = {
   login: async (userObj) => {
