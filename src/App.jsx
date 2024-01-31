@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes, useNavigate } from "react-router-dom";
 import API from "./utils/API";
 import { useState } from "react";
 import Home from "./pages/Home";
@@ -39,6 +39,7 @@ function App() {
   };
 
   const handleLogout = () => {
+    // const navigate = useNavigate();
     const jwtToken = localStorage.getItem("id_token");
     API.logout(jwtToken)
       .then(() => {
@@ -46,6 +47,7 @@ function App() {
         setToken("");
         setIsLoggedIn(false);
         setUserId(0);
+        window.location.href = "/login"
       })
       .catch((err) => {
         console.log("err", err);
@@ -58,8 +60,7 @@ function App() {
         <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/clubs/:id" 
-          element={<ClubPage />} />
+          <Route path="/clubs/:id" element={<ClubPage />} />
           <Route
             path="/login"
             element={<AuthForm type="login" handleSubmit={handleLogin} />}
@@ -68,7 +69,6 @@ function App() {
             path="/signup"
             element={<AuthForm type="signup" handleSubmit={handleSignup} />}
           />
-          <Route element={<handleLogout/>}/>
         </Routes>
       </Router>
     </>
