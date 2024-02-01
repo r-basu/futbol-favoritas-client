@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import moment from 'moment';
 
 export default function ClubPage() {
   const { id } = useParams();
@@ -58,7 +59,7 @@ export default function ClubPage() {
     return <div>Loading...</div>;
   }
 
-  return (
+   return (
     <div>
       <img src={clubData.crest} alt="Club Crest" />
       <h1>{clubData.name}</h1>
@@ -72,10 +73,16 @@ export default function ClubPage() {
           </li>
         ))}
       </ul>
+      <p>Last 10 Matches:</p>
+      <ul>
+        {clubSchedLast.matches.map((match) => (
+          <li key={match.id}>{match.competition.name} - {moment.utc(match.utcDate).local().format('YYYY-MM-DD')}</li>
+        ))}
+      </ul>
       <p>Upcoming Matches:</p>
       <ul>
         {clubSched.matches.map((match) => (
-          <li key={match.id}>{match.competition.name}</li>
+          <li key={match.id}>{match.competition.name} - {moment.utc(match.utcDate).local().format('YYYY-MM-DD')}</li>
         ))}
       </ul>
       {/* Add more club data as needed */}
