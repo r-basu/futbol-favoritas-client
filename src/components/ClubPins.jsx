@@ -6,7 +6,7 @@ export default function ClubPage(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/pins", {
+        const response = await fetch("http://localhost:3000/api/clubs/pins", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("id_token")}`,
           },
@@ -26,7 +26,7 @@ export default function ClubPage(props) {
   const handleDelete = async (clubId) => {
     try {
       const response = await fetch(
-        `https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/pins/club/${clubId}`,
+        `http://localhost:3000/api/clubs/pins/club/${clubId}`,
         {
           method: "DELETE",
           headers: {

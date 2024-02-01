@@ -19,7 +19,7 @@ export default function Home(props) {
   const fetchCompetitions = async () => {
     try {
       const response = await fetch(
-        "https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/competitions"
+        "http://localhost:3000/api/clubs/competitions"
       );
       const data = await response.json();
       setCompetitions(data);
@@ -36,7 +36,7 @@ export default function Home(props) {
   const fetchCompetitionTeams = async () => {
     try {
       const response = await fetch(
-        `https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/competitionTeams/${selectedCompetition}`
+        `http://localhost:3000/api/clubs/competitionTeams/${selectedCompetition}`
       );
       const data = await response.json();
       setClubs(data);
