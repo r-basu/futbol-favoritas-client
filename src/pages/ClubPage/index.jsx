@@ -1,34 +1,35 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import moment from 'moment';
+import moment from "moment";
 
 export default function ClubPage() {
-  const { id } = useParams();
+  const { clubId, competitionId } = useParams();
   const [clubData, setClubData] = useState(null);
   const [clubSched, setClubSched] = useState(null);
   const [clubSchedLast, setClubSchedLast] = useState(null);
-
 
   useEffect(() => {
     const fetchClubData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/clubs/club/${id}`
+          `http://localhost:3000/api/clubs/club/${clubId}/${competitionId}`
         );
-        const data = await response.json();
-        setClubData(data);
+        const { apiClubData } = await response.json();
+        setClubData(apiClubData);
       } catch (error) {
         console.log("Error fetching club data:", error);
       }
     };
 
     fetchClubData();
-  }, [id]);
+  }, [clubId]);
 
   useEffect(() => {
     const fetchClubSched = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/clubs/clubSched/${id}`);
+        const response = await fetch(
+          `http://localhost:3000/api/clubs/clubSched/${clubId}`
+        );
         const data = await response.json();
         setClubSched(data);
         console.log(data);
@@ -38,12 +39,14 @@ export default function ClubPage() {
     };
 
     fetchClubSched();
-  }, [id]);
+  }, [clubId]);
 
   useEffect(() => {
     const fetchClubSchedLast = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/clubs/clubSchedLast/${id}`);
+        const response = await fetch(
+          `http://localhost:3000/api/clubs/clubSchedLast/${clubId}`
+        );
         const data = await response.json();
         setClubSchedLast(data);
         console.log(data);
@@ -53,7 +56,7 @@ export default function ClubPage() {
     };
 
     fetchClubSchedLast();
-  }, [id]);
+  }, [clubId]);
 
   if (!clubData || !clubSched || !clubSchedLast) {
     return <div>Loading...</div>;
