@@ -57,7 +57,7 @@ export default function ClubPage(props) {
           {clubsData.map((club) => (
             <tr key={club.dbClubId}>
               <td>
-                <Link to={`/clubs/${club.dbClubId}`}>{club.dbClubName}</Link>
+                <Link to={`/clubs/${club.dbClubId}/${club.dbCompetitionId}`}>{club.dbClubName}</Link>
               </td>
               <td>
                 <button onClick={() => handleDelete(club.dbClubId)}>

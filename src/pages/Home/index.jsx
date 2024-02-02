@@ -48,9 +48,10 @@ export default function Home(props) {
   const handleClubChange = async (event) => {
     const selectedOption = event.target.options[event.target.selectedIndex];
     const selectedClubName = selectedOption.textContent;
+    const selectedCompetitionId = selectedCompetition;
     const eTarget = event.target.value
     try {
-      const response = await fetch("https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/pins/club", {
+      const response = await fetch("http://localhost:3000/api/clubs/pins/club", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,6 +60,7 @@ export default function Home(props) {
         body: JSON.stringify({
           selectedClubId: event.target.value,
           selectedClubName: selectedClubName,
+          selectedCompetitionId: selectedCompetitionId
         }),
       });
       const data = await response.json();

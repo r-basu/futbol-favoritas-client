@@ -60,7 +60,7 @@ function App() {
         <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/clubs/:id" element={<ClubPage />} />
+          <Route path="/clubs/:clubId/:competitionId" element={<ClubPage />} />
           <Route
             path="/login"
             element={<AuthForm type="login" handleSubmit={handleLogin} />}
