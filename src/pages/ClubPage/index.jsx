@@ -68,28 +68,33 @@ export default function ClubPage() {
       <h1>{clubData.name}</h1>
       <p>Founded: {clubData.founded}</p>
       <p>Stadium: {clubData.venue}</p>
+      <p>Squad:</p>
+      <ul>
+        {clubData.squad.map((player) => (
+          <li key={player.id}>
+            {player.name} - {player.position}
+          </li>
+        ))}
+      </ul>
+      <p>Last 10 Matches:</p>
+      <ul>
+        {clubSchedLast.matches.map((match) => (
+          <li key={match.id}>
+            {match.competition.name} -{" "}
+            {moment.utc(match.utcDate).local().format("YYYY-MM-DD")}
+          </li>
+        ))}
+      </ul>
+      <p>Upcoming Matches:</p>
+      <ul>
+        {clubSched.matches.map((match) => (
+          <li key={match.id}>
+            {match.competition.name} -{" "}
+            {moment.utc(match.utcDate).local().format("YYYY-MM-DD")}
+          </li>
+        ))}
+      </ul>
+      {/* Add more club data as needed */}
     </div>
-    //   <p>Squad:</p>
-    //   <ul>
-    //     {clubData.squad.map((player) => (
-    //       <li key={player.id}>
-    //         {player.name} - {player.position}
-    //       </li>
-    //     ))}
-    //   </ul>
-    //   <p>Last 10 Matches:</p>
-    //   <ul>
-    //     {clubSchedLast.matches.map((match) => (
-    //       <li key={match.id}>{match.competition.name} - {moment.utc(match.utcDate).local().format('YYYY-MM-DD')}</li>
-    //     ))}
-    //   </ul>
-    //   <p>Upcoming Matches:</p>
-    //   <ul>
-    //     {clubSched.matches.map((match) => (
-    //       <li key={match.id}>{match.competition.name} - {moment.utc(match.utcDate).local().format('YYYY-MM-DD')}</li>
-    //     ))}
-    //   </ul>
-    //   {/* Add more club data as needed */}
-    // </div>
   );
 }
