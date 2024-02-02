@@ -80,18 +80,13 @@ export default function ClubPage() {
       <ul>
         {clubSchedLast.matches.map((match) => (
           <li key={match.id}>
-            {match.competition.name} -{" "}
-            {moment.utc(match.utcDate).local().format("YYYY-MM-DD")}
-          </li>
+            <img src ={match.competition.emblem}></img> - {moment.utc(match.utcDate).local().format('YYYY-MM-DD')} - Home: {match.homeTeam.name}:{match.score.fullTime.home} Away: {match.awayTeam.name}:{match.score.fullTime.away} </li>
         ))}
       </ul>
       <p>Upcoming Matches:</p>
       <ul>
         {clubSched.matches.map((match) => (
-          <li key={match.id}>
-            {match.competition.name} -{" "}
-            {moment.utc(match.utcDate).local().format("YYYY-MM-DD")}
-          </li>
+          <li key={match.id}> <img src ={match.competition.emblem}></img> - {moment.utc(match.utcDate).local().format('YYYY-MM-DD')}- Home: {match.homeTeam.name} Away: {match.awayTeam.name}</li>
         ))}
       </ul>
       {/* Add more club data as needed */}
