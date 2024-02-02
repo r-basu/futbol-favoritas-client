@@ -1,0 +1,22 @@
+table {
+    width: 33%;
+    border-collapse: collapse;
+  }
+  
+  th,
+  td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+/*   
+  .th-lost,
+  .th-gf,
+  .th-ga,
+  .th-gd {
+    text-align: center;
+  } */
