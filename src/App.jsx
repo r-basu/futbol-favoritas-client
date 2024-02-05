@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import AuthForm from "./pages/AuthForm";
 import ClubPage from "./pages/ClubPage";
 import NavBar from "./components/NavBar.jsx";
+import logo from "./assets/logo.png";
 
 function App() {
   const [token, setToken] = useState("");
@@ -57,10 +58,10 @@ function App() {
   return (
     <>
       <Router>
-        <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+        <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} logo={logo}/>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/clubs/:clubId/:competitionId" element={<ClubPage />} />
+          <Route path="/clubs/:id" element={<ClubPage />} />
           <Route
             path="/login"
             element={<AuthForm type="login" handleSubmit={handleLogin} />}
