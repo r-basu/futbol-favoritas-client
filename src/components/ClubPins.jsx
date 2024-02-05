@@ -46,22 +46,26 @@ export default function ClubPage(props) {
   };
 
   return (
-    <div>
-      <table>
+    <div className="flex bg-green-200 p-4">
+      <table className="text-center">
         <thead>
           <tr>
-            <th>Pinned Clubs:</th>
+            <th className="text-2xl">Pinned Clubs:</th>
           </tr>
         </thead>
         <tbody>
           {clubsData.map((club) => (
             <tr key={club.dbClubId}>
-              <td>
-                <Link to={`/clubs/${club.dbClubId}/${club.dbCompetitionId}`}>{club.dbClubName}</Link>
+              <td class="p-4">
+                <Link to={`/clubs/${club.dbClubId}`} className="text-lg font-medium">
+                  {club.dbClubName}
+                </Link>
               </td>
-              <td>
-                <button onClick={() => handleDelete(club.dbClubId)}>
-                  Delete
+              <td class="p-4">
+                <button
+                  onClick={() => handleDelete(club.dbClubId)}
+                  className="text-lg border-2 border-black w-10 bg-red-600 text-white rounded-xl"
+                >-
                 </button>
               </td>
             </tr>
