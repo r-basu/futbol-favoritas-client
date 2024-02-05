@@ -48,7 +48,6 @@ export default function Home(props) {
   const handleClubChange = async (event) => {
     const selectedOption = event.target.options[event.target.selectedIndex];
     const selectedClubName = selectedOption.textContent;
-    const selectedCompetitionId = selectedCompetition;
     const eTarget = event.target.value
     try {
       const response = await fetch("http://localhost:3000/api/clubs/pins/club", {
@@ -60,7 +59,6 @@ export default function Home(props) {
         body: JSON.stringify({
           selectedClubId: event.target.value,
           selectedClubName: selectedClubName,
-          selectedCompetitionId: selectedCompetitionId
         }),
       });
       const data = await response.json();
@@ -84,12 +82,14 @@ export default function Home(props) {
         selectedCompetition={selectedCompetition}
         handleCompetitionChange={handleCompetitionChange}
       />
-      <TeamDropdown
-        selectedCompetition={selectedCompetition}
+      {selectedCompetition && (
+        <TeamDropdown
+          selectedCompetition={selectedCompetition}
         clubs={clubs}
         selectedClub={selectedClub}
         handleClubChange={handleClubChange}
       />
+      )}
     </div>
   );
 }
