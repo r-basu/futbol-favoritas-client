@@ -1,8 +1,8 @@
 export default function TeamDropdown(props) {
   return (
-    <div>
-      <label htmlFor="club">Select a club to pin:</label>
-      <select
+    <div class="p-4">
+      <label class="p-4 text-xl font-medium" htmlFor="club">Select a club to pin:</label>
+      <select class="font-medium"
         id="club"
         value={props.selectedClub}
         onChange={props.handleClubChange}
