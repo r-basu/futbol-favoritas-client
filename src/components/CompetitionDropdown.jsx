@@ -1,6 +1,6 @@
 export default function CompetitionDropdown(props) {
   return (
-    <div>
+    <div class="p-4">
       <label htmlFor="competition">
         Select a competition to choose your team from to pin:
       </label>

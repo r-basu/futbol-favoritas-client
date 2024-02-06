@@ -78,19 +78,20 @@ export default function Home(props) {
   };
   return (
     <div>
-      <h1>Home Page</h1>
       <ClubPins selectedClub={selectedClub} />
       <CompetitionDropdown
         competitions={competitions}
         selectedCompetition={selectedCompetition}
         handleCompetitionChange={handleCompetitionChange}
       />
-      <TeamDropdown
-        selectedCompetition={selectedCompetition}
-        clubs={clubs}
-        selectedClub={selectedClub}
-        handleClubChange={handleClubChange}
-      />
+       {selectedCompetition && (
+        <TeamDropdown
+          selectedCompetition={selectedCompetition}
+          clubs={clubs}
+          selectedClub={selectedClub}
+          handleClubChange={handleClubChange}
+        />
+      )}
     </div>
   );
 }

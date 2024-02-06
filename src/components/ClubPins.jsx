@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 export default function ClubPage(props) {
   const [clubsData, setClubsData] = useState([]);
+  const [showAllClubs, setShowAllClubs] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,29 +47,52 @@ export default function ClubPage(props) {
     }
   };
 
-  return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Pinned Clubs:</th>
-          </tr>
-        </thead>
-        <tbody>
-          {clubsData.map((club) => (
+  const toggleShowAllClubs = () => {
+    setShowAllClubs(!showAllClubs);
+  };
+
+ return (
+  <div className="flex bg-green-200 p-4">
+    <table className="text-center">
+      <thead>
+        <tr>
+          <th className="flex items-center justify-between">
+            <div className="text-2xl">Pinned Clubs:</div>
+            {clubsData.length > 3 && (
+              <button
+                onClick={toggleShowAllClubs}
+                className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                {showAllClubs ? "Show Less Clubs" : "Show All Clubs"}
+              </button>
+            )}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {clubsData
+          .slice(0, showAllClubs ? clubsData.length : 3)
+          .map((club) => (
             <tr key={club.dbClubId}>
-              <td>
-                <Link to={`/clubs/${club.dbClubId}/${club.dbCompetitionId}`}>{club.dbClubName}</Link>
+              <td className="p-4">
+                <Link
+                  to={`/clubs/${club.dbClubId}/${club.dbCompetitionId}`}
+                  className="text-lg font-medium text-blue-500 hover:text-blue-700"
+                >
+                  {club.dbClubName}
+                </Link>
               </td>
-              <td>
-                <button onClick={() => handleDelete(club.dbClubId)}>
-                  Delete
+              <td className="p-4">
+                <button
+                  onClick={() => handleDelete(club.dbClubId)}
+                  className="text-lg border-2 border-black w-10 bg-red-600 text-white rounded-xl"
+                >
+                  -
                 </button>
               </td>
             </tr>
           ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+      </tbody>
+    </table>
+  </div>
+)}

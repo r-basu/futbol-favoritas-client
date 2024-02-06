@@ -1,18 +1,24 @@
 import { Link } from "react-router-dom";
 
 
-export default function NavBar({ isLoggedIn, handleLogout }) {
+
+export default function NavBar({ isLoggedIn, handleLogout, logo }) {
   return (
-    <div className="NavBar">
-      <Link to="/">Home</Link>
-      <Link to="/login">Login</Link>
-      {isLoggedIn ? (
-        <Link to="/" onClick={handleLogout}>
-          Logout
-        </Link>
-      ) : (
-        <Link to="/signup">Signup</Link>
-      )}
+    <div className="flex justify-end bg-gray-400 p-4">
+      <img src={logo} alt="Logo" className="h-20" />
+      <div className="NavBar ml-auto flex items-center">
+        <Link to="/" className="text-lg mx-4">Home</Link>
+        <Link to="/login" className="text-lg mx-4">Login</Link>
+        {isLoggedIn ? (
+          <Link to="/" onClick={handleLogout} className="text-lg mx-4">
+            Logout
+          </Link>
+        ) : (
+          <Link to="/signup" className="text-lg mx-4">
+            Signup
+          </Link>
+        )}
+      </div>
     </div>
   );
 }
