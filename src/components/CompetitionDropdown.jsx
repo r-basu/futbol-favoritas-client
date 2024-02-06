@@ -1,10 +1,10 @@
 export default function CompetitionDropdown(props) {
   return (
-    <div>
-      <label htmlFor="competition">
+    <div class="p-4">
+      <label class="p-4 text-medium text-xl font-medium" htmlFor="competition">
         Select a competition to choose your team from to pin:
       </label>
-      <select
+      <select class="font-medium"
         id="competition"
         value={props.selectedCompetition}
         onChange={props.handleCompetitionChange}

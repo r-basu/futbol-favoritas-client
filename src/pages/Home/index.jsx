@@ -50,7 +50,7 @@ export default function Home(props) {
     const selectedClubName = selectedOption.textContent;
     const eTarget = event.target.value
     try {
-      const response = await fetch("https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/pins/club", {
+      const response = await fetch("http://localhost:3000/api/clubs/pins/club", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,19 +76,20 @@ export default function Home(props) {
   };
   return (
     <div>
-      <h1>Home Page</h1>
       <ClubPins selectedClub={selectedClub} />
       <CompetitionDropdown
         competitions={competitions}
         selectedCompetition={selectedCompetition}
         handleCompetitionChange={handleCompetitionChange}
       />
-      <TeamDropdown
-        selectedCompetition={selectedCompetition}
+      {selectedCompetition && (
+        <TeamDropdown
+          selectedCompetition={selectedCompetition}
         clubs={clubs}
         selectedClub={selectedClub}
         handleClubChange={handleClubChange}
       />
+      )}
     </div>
   );
 }

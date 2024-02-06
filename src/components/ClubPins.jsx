@@ -3,6 +3,15 @@ import { Link } from "react-router-dom";
 
 export default function ClubPage(props) {
   const [clubsData, setClubsData] = useState([]);
+  const [showAllClubs, setShowAllClubs] = useState(false);
+
+  const toggleShowAllClubs = () => {
+    setShowAllClubs(!showAllClubs);
+  };
+
+  const displayedClubs = showAllClubs ? clubsData : clubsData.slice(0,3);
+
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,30 +53,43 @@ export default function ClubPage(props) {
       console.log("Error deleting club:", error);
     }
   };
+  
 
-  return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Pinned Clubs:</th>
+return (
+  <div className="flex bg-green-200 p-4">
+    <table className="text-center">
+      <thead>
+        <tr>
+          <th className="flex items-center justify-between">
+            <div className="text-2xl">Pinned Clubs:</div>
+            {clubsData.length > 3 && (
+              <button onClick={toggleShowAllClubs} className="ml-4">
+                {showAllClubs ? 'Show Less Clubs' : 'Show All Clubs'}
+              </button>
+            )}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {displayedClubs.map((club) => (
+          <tr key={club.dbClubId}>
+            <td className="p-4">
+              <Link to={`/clubs/${club.dbClubId}`} className="text-lg font-medium">
+                {club.dbClubName}
+              </Link>
+            </td>
+            <td className="p-4">
+              <button
+                onClick={() => handleDelete(club.dbClubId)}
+                className="text-lg border-2 border-black w-10 bg-red-600 text-white rounded-xl"
+              >
+                -
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {clubsData.map((club) => (
-            <tr key={club.dbClubId}>
-              <td>
-                <Link to={`/clubs/${club.dbClubId}`}>{club.dbClubName}</Link>
-              </td>
-              <td>
-                <button onClick={() => handleDelete(club.dbClubId)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
 }
