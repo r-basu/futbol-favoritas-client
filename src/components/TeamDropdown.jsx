@@ -1,6 +1,6 @@
 export default function TeamDropdown(props) {
   return (
-    <div>
+    <div class="p-4">
       <label htmlFor="club">Select a club to pin:</label>
       <select
         id="club"
