@@ -51,48 +51,38 @@ export default function ClubPage(props) {
     setShowAllClubs(!showAllClubs);
   };
 
- return (
-  <div className="flex bg-green-200 p-4">
-    <table className="text-center">
-      <thead>
-        <tr>
-          <th className="flex items-center justify-between">
-            <div className="text-2xl">Pinned Clubs:</div>
-            {clubsData.length > 3 && (
-              <button
-                onClick={toggleShowAllClubs}
-                className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              >
-                {showAllClubs ? "Show Less Clubs" : "Show All Clubs"}
-              </button>
-            )}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {clubsData
-          .slice(0, showAllClubs ? clubsData.length : 3)
-          .map((club) => (
+return (
+  <div className="flex bg-light-green p-4 justify-center w-2/5">
+    <div className="overflow-y-auto max-h-80 pr-10">
+      <table className="text-center w-auto">
+        <thead>
+          <tr>
+            <div className="text-2xl"></div>
+          </tr>
+        </thead>
+        <tbody>
+          {clubsData.map((club) => (
             <tr key={club.dbClubId}>
               <td className="p-4">
                 <Link
                   to={`/clubs/${club.dbClubId}/${club.dbCompetitionId}`}
-                  className="text-lg font-medium text-blue-500 hover:text-blue-700"
+                  className="text-lg font-medium text-black hover:text-white-green"
                 >
                   {club.dbClubName}
                 </Link>
               </td>
-              <td className="p-4">
+              <td className="p-4 pl-20">
                 <button
+                  className="bg-dark-green hover:bg-black-green text-white-green font-bold py-2 px-4 rounded"
                   onClick={() => handleDelete(club.dbClubId)}
-                  className="text-lg border-2 border-black w-10 bg-red-600 text-white rounded-xl"
                 >
-                  -
+                  <i className="fas fa-trash"></i>
                 </button>
               </td>
             </tr>
           ))}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
-)}
+)};

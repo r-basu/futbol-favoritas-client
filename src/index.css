@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Customize the scrollbar */
+::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background color of the scrollbar track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #355420; /* Color of the scrollbar thumb */
+  border-radius: 5px; /* Border radius of the scrollbar thumb */
+  position: top; /* Enable positioning of the icon */
+}
+
+/* Icon inside the scrollbar thumb */
+::-webkit-scrollbar-thumb::before {
+  content: "\f1e3"; /* Unicode for the desired icon (e.g., FontAwesome) */
+  font-family: "Font Awesome"; /* Font family for the icon */
+  position: absolute; /* Position the icon */
+  top: 50%; /* Adjust the vertical position of the icon */
+  left: 50%; /* Adjust the horizontal position of the icon */
+  transform: translate(-50%, -50%); /* Center the icon */
+  color: #fff; /* Color of the icon */
+}
+
+@keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
