@@ -77,8 +77,9 @@ export default function Home(props) {
     setSelectedCompetition(event.target.value);
   };
   return (
-    <div>
+    <div class="flex flex-row">
       <ClubPins selectedClub={selectedClub} />
+      <div>
       <CompetitionDropdown
         competitions={competitions}
         selectedCompetition={selectedCompetition}
@@ -92,6 +93,7 @@ export default function Home(props) {
           handleClubChange={handleClubChange}
         />
       )}
+      </div>
     </div>
   );
 }

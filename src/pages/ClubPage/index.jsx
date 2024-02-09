@@ -62,7 +62,36 @@ export default function ClubPage() {
   }, [clubId]);
 
   if (!clubData || !clubStandings || !clubSched || !clubSchedLast) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '1000px',
+        }}
+      >
+        <i
+          className="fas fa-futbol"
+          style={{
+            animation: 'spin 2s infinite linear',
+            fontSize: '5rem',
+          }}
+        ></i>
+        <style>
+          {`
+            @keyframes spin {
+              0% {
+                transform: rotate(0deg);
+              }
+              100% {
+                transform: rotate(360deg);
+              }
+            }
+          `}
+        </style>
+      </div>
+    );
   }
 
   // STANDINGS DATA
@@ -88,7 +117,7 @@ export default function ClubPage() {
           <img
             src={teamIcon}
             alt={teamName}
-            style={{ width: "20px", height: "20px" }}
+            style={{ width: "50px", height: "50px" }}
           />{" "}
           {teamName}
         </td>
@@ -105,62 +134,61 @@ export default function ClubPage() {
   });
 
   return (
-    <div>
+  <div>
+    <div className="justify-center">
       <img src={clubData.crest} alt="Club Crest" />
-      <h1>{clubData.name}</h1>
-      <p>Founded: {clubData.founded}</p>
-      <p>Stadium: {clubData.venue}</p>
-      <p>Squad:</p>
-      <ul>
-        {clubData.squad.map((player) => (
-          <li key={player.id}>
-            {player.name} - {player.position}
-          </li>
-        ))}
-      </ul>
-      <p>Last 10 Matches:</p>
-      <ul>
-        {clubSchedLast.matches.map((match) => (
-          <li key={match.id}>
-            <img src={match.competition.emblem}></img> -{" "}
-            {moment.utc(match.utcDate).local().format("YYYY-MM-DD")} - Home:{" "}
-            {match.homeTeam.name}:{match.score.fullTime.home} Away:{" "}
-            {match.awayTeam.name}:{match.score.fullTime.away}{" "}
-          </li>
-        ))}
-      </ul>
-      <p>Upcoming Matches:</p>
-      <ul>
-        {clubSched.matches.map((match) => (
-          <li key={match.id}>
-            {" "}
-            <img src={match.competition.emblem}></img> -{" "}
-            {moment.utc(match.utcDate).local().format("YYYY-MM-DD")}- Home:{" "}
-            {match.homeTeam.name} Away: {match.awayTeam.name}
-          </li>
-        ))}
-      </ul>
-
-      {/* STANDINGS TABLE */}
-      <h1>Standings:</h1>
-      <p>Current Matchday: {clubStandings.season.currentMatchday}</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Pos</th>
-            <th>Club</th>
-            <th>Pts</th>
-            <th>PG</th>
-            <th>W</th>
-            <th>L</th>
-            <th>D</th>
-            <th>GF</th>
-            <th>GA</th>
-            <th>GD</th>
-          </tr>
-        </thead>
-        <tbody>{tableRows}</tbody>
-      </table>
     </div>
-  );
-}
+    <h1>{clubData.name}</h1>
+    <p>Founded: {clubData.founded}</p>
+    <p>Stadium: {clubData.venue}</p>
+    <p>Squad:</p>
+    <ul>
+      {clubData.squad.map((player) => (
+        <li key={player.id}>
+          {player.name} - {player.position}
+        </li>
+      ))}
+    </ul>
+    <p>Last 10 Matches:</p>
+    <ul>
+      {clubSchedLast.matches.map((match) => (
+        <li key={match.id}>
+          <img src={match.competition.emblem} alt="Competition Emblem" /> -{" "}
+          {moment.utc(match.utcDate).local().format("YYYY-MM-DD")} - Home:{" "}
+          {match.homeTeam.name}:{match.score.fullTime.home} Away:{" "}
+          {match.awayTeam.name}:{match.score.fullTime.away}{" "}
+        </li>
+      ))}
+    </ul>
+    <p>Upcoming Matches:</p>
+    <ul>
+      {clubSched.matches.map((match) => (
+        <li key={match.id}>
+          <img src={match.competition.emblem} alt="Competition Emblem" /> -{" "}
+          {moment.utc(match.utcDate).local().format("YYYY-MM-DD")}- Home:{" "}
+          {match.homeTeam.name} Away: {match.awayTeam.name}
+        </li>
+      ))}
+    </ul>
+    {/* STANDINGS TABLE */}
+    <h1>Standings:</h1>
+    <p>Current Matchday: {clubStandings.season.currentMatchday}</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Pos</th>
+          <th>Club</th>
+          <th>Pts</th>
+          <th>PG</th>
+          <th>W</th>
+          <th>L</th>
+          <th>D</th>
+          <th>GF</th>
+          <th>GA</th>
+          <th>GD</th>
+        </tr>
+      </thead>
+      <tbody>{tableRows}</tbody>
+    </table>
+  </div>
+)};
