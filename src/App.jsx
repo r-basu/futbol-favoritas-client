@@ -1,6 +1,11 @@
-import { Route, BrowserRouter as Router, Routes, useNavigate } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import API from "./utils/API";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import AuthForm from "./pages/AuthForm";
 import ClubPage from "./pages/ClubPage";
@@ -12,35 +17,45 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(0);
 
-  const handleLogin = (loginObj) => {
-    API.login(loginObj)
-      .then((loginData) => {
-        setToken(loginData.token);
-        console.log(loginData.token);
-        localStorage.setItem("id_token", loginData.token);
-        setIsLoggedIn(true);
-        setUserId(loginData.user.id);
-      })
-      .catch((err) => {
-        console.log("Login Error", err);
-      });
+  useEffect(() => {
+    const storedToken = localStorage.getItem("id_token");
+    if (storedToken) {
+      setToken(storedToken);
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const handleLogin = async (loginObj) => {
+    try {
+      const loginData = await API.login(loginObj);
+      setToken(loginData.token);
+      localStorage.setItem("id_token", loginData.token);
+      setIsLoggedIn(true);
+      setUserId(loginData.user.id);
+      return Promise.resolve();
+    } catch (err) {
+      console.log("Login Error", err);
+      return Promise.reject(err);
+    }
   };
 
-  const handleSignup = (signupObj) => {
-    API.signup(signupObj)
-      .then((loginData) => {
-        setToken(loginData.token);
-        localStorage.setItem("id_token", loginData.token);
-        setIsLoggedIn(true);
-        setUserId(loginData.user.id);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
+  const handleSignup = async (signupObj) => {
+    try {
+      const loginData = await API.signup(signupObj);
+      setToken(loginData.token);
+      localStorage.setItem("id_token", loginData.token);
+      setIsLoggedIn(true);
+      setUserId(loginData.user.id);
+      return Promise.resolve();
+    } catch (err) {
+      console.log("Login Error", err);
+      return Promise.reject(err);
+    }
   };
 
   const handleLogout = () => {
-    // const navigate = useNavigate();
     const jwtToken = localStorage.getItem("id_token");
     API.logout(jwtToken)
       .then(() => {
@@ -48,7 +63,7 @@ function App() {
         setToken("");
         setIsLoggedIn(false);
         setUserId(0);
-        window.location.href = "/login"
+        return <Navigate to="/login" />;
       })
       .catch((err) => {
         console.log("err", err);
@@ -58,10 +73,22 @@ function App() {
   return (
     <>
       <Router>
-        <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout}logo={logo} />
+        <NavBar
+          isLoggedIn={isLoggedIn}
+          handleLogout={handleLogout}
+          logo={logo}
+        />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/clubs/:clubId/:competitionId" element={<ClubPage />} />
+          <Route
+            path="/"
+            element={isLoggedIn ? <Home /> : <Navigate to="/login" replace />}
+          />
+          <Route
+            path="/clubs/:clubId/:competitionId"
+            element={
+              isLoggedIn ? <ClubPage /> : <Navigate to="/login" replace />
+            }
+          />
           <Route
             path="/login"
             element={<AuthForm type="login" handleSubmit={handleLogin} />}
@@ -70,6 +97,7 @@ function App() {
             path="/signup"
             element={<AuthForm type="signup" handleSubmit={handleSignup} />}
           />
+          <Route path="*" element={<Navigate to="login" replace />} />
         </Routes>
       </Router>
     </>

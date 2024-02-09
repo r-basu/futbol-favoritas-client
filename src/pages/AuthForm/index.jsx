@@ -1,17 +1,27 @@
 import React, { useState } from "react";
 import "./style.css";
-import API from "../../utils/API";
+import { Navigate } from "react-router-dom";
 
 export default function AuthForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const subHandle = (e) => {
     e.preventDefault();
-    props.handleSubmit({
-      email,
-      password,
-    });
+    props
+      .handleSubmit({
+        email,
+        password,
+      })
+      .then(() => {
+        setIsSubmitted(true);
+      });
   };
+
+  if (isSubmitted) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="AuthForm">
