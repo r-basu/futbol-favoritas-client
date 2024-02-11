@@ -15,7 +15,7 @@ export default function ClubPage() {
     const fetchClubData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/clubs/club/${clubId}/${competitionId}`
+          `https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/club/${clubId}/${competitionId}`
         );
         const { apiClubData, apiStandingsData } = await response.json();
         setClubData(apiClubData);
@@ -32,7 +32,7 @@ export default function ClubPage() {
     const fetchClubSched = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/clubs/clubSched/${clubId}`
+          `https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/clubSched/${clubId}`
         );
         const data = await response.json();
         setClubSched(data);
@@ -49,7 +49,7 @@ export default function ClubPage() {
     const fetchClubSchedLast = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/clubs/clubSchedLast/${clubId}`
+          `https://futbol-favoritas-server-9958536b1fa0.herokuapp.com/api/clubs/clubSchedLast/${clubId}`
         );
         const data = await response.json();
         setClubSchedLast(data);
