@@ -77,7 +77,7 @@ export default function Home(props) {
     setSelectedCompetition(event.target.value);
   };
   return (
-    <div class="flex flex-row">
+    <div class="lg:flex lg:flex-row mb:flex mb:flex-col">
       <ClubPins selectedClub={selectedClub} />
       <div>
       <CompetitionDropdown
