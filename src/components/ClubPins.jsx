@@ -52,7 +52,7 @@ export default function ClubPage(props) {
   };
 
 return (
-  <div className="flex bg-light-green p-4 justify-center w-2/5">
+  <div className="lg:flex bg-light-green lg:p-4 lg:justify-center lg:w-2/5 min-width-10">
     <div className="overflow-y-auto max-h-80 pr-10">
       <table className="text-center w-auto">
         <thead>

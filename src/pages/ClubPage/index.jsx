@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import "./style.css";
+import ScrollToTop from 'react-scroll-to-top';
 
 export default function ClubPage() {
   const { clubId, competitionId } = useParams();
@@ -111,7 +112,7 @@ export default function ClubPage() {
     const goalDifference = row.goalDifference;
 
     return (
-      <tr key={position}>
+      <tr key={position} className={teamIcon === clubData.crest ? "bg-yellow-200" : ""}>
         <td>{position}</td>
         <td>
           <img
@@ -134,61 +135,98 @@ export default function ClubPage() {
   });
 
   return (
-  <div>
-    <div className="justify-center">
-      <img src={clubData.crest} alt="Club Crest" />
-    </div>
-    <h1>{clubData.name}</h1>
-    <p>Founded: {clubData.founded}</p>
-    <p>Stadium: {clubData.venue}</p>
-    <p>Squad:</p>
-    <ul>
-      {clubData.squad.map((player) => (
-        <li key={player.id}>
-          {player.name} - {player.position}
-        </li>
-      ))}
-    </ul>
-    <p>Last 10 Matches:</p>
-    <ul>
-      {clubSchedLast.matches.map((match) => (
-        <li key={match.id}>
-          <img src={match.competition.emblem} alt="Competition Emblem" /> -{" "}
-          {moment.utc(match.utcDate).local().format("YYYY-MM-DD")} - Home:{" "}
-          {match.homeTeam.name}:{match.score.fullTime.home} Away:{" "}
-          {match.awayTeam.name}:{match.score.fullTime.away}{" "}
-        </li>
-      ))}
-    </ul>
-    <p>Upcoming Matches:</p>
-    <ul>
-      {clubSched.matches.map((match) => (
-        <li key={match.id}>
-          <img src={match.competition.emblem} alt="Competition Emblem" /> -{" "}
-          {moment.utc(match.utcDate).local().format("YYYY-MM-DD")}- Home:{" "}
-          {match.homeTeam.name} Away: {match.awayTeam.name}
-        </li>
-      ))}
-    </ul>
-    {/* STANDINGS TABLE */}
-    <h1>Standings:</h1>
-    <p>Current Matchday: {clubStandings.season.currentMatchday}</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Pos</th>
-          <th>Club</th>
-          <th>Pts</th>
-          <th>PG</th>
-          <th>W</th>
-          <th>L</th>
-          <th>D</th>
-          <th>GF</th>
-          <th>GA</th>
-          <th>GD</th>
-        </tr>
-      </thead>
-      <tbody>{tableRows}</tbody>
-    </table>
+<div className="mt-5">
+  <div className="flex justify-center">
+    <img src={clubData.crest} alt="Club Crest" className="w-30 h-30" />
+    <ScrollToTop smooth />
   </div>
-)};
+  <h1 className="text-xl text-center">{clubData.name}</h1>
+  <p className="text-center">Founded: {clubData.founded}</p>
+  <p className="text-center">Stadium: {clubData.venue}</p>
+  <div className="lg:flex lg:justify-center lg:items-start lg:flex-row sm:flex sm:flex-col sm:justify-center sm:items-center">
+  <table className="lg:w-1/4 sm:w-1/4 mb-4 sm:mb-0">
+    <thead>
+      <tr>
+        <th className="px-4 py-2">Name</th>
+        <th className="px-4 py-2">Position</th>
+      </tr>
+    </thead>
+    <tbody>
+      {clubData.squad.map((player) => (
+        <tr key={player.id} className="text-center">
+          <td className="border px-4 py-2">{player.name}</td>
+          <td className="border px-4 py-2">{player.position}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <div>
+  <table className="w-full sm:w-1/2 mx-auto">
+    <caption className="text-center">Last 10 Matches</caption>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Competition</th>
+        <th>Home Team</th>
+        <th>Away Team</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      {clubSchedLast.matches.map((match) => (
+        <tr key={match.id}>
+          <td>{moment.utc(match.utcDate).local().format("YYYY-MM-DD")}</td>
+          <td><img src={match.competition.emblem} alt="Competition Emblem" className="w-6 h-6 inline-block" /></td>
+          <td>{match.homeTeam.name}</td>
+          <td>{match.awayTeam.name}</td>
+          <td>{match.score.fullTime.home} - {match.score.fullTime.away}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <table className="w-full sm:w-1/2 mx-auto mt-4">
+    <caption className="text-center">Upcoming Matches</caption>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Competition</th>
+        <th>Home Team</th>
+        <th>Away Team</th>
+      </tr>
+    </thead>
+    <tbody>
+      {clubSched.matches.map((match) => (
+        <tr key={match.id}>
+          <td>{moment.utc(match.utcDate).local().format("YYYY-MM-DD")}</td>
+          <td><img src={match.competition.emblem} alt="Competition Emblem" className="w-6 h-6 inline-block" /></td>
+          <td>{match.homeTeam.name}</td>
+          <td>{match.awayTeam.name}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+</div>
+  {/* STANDINGS TABLE */}
+  <h1 className="text-xl text-center">Standings:</h1>
+  <p className="text-center">Current Matchday: {clubStandings.season.currentMatchday}</p>
+  <table className="mx-auto">
+    <thead>
+      <tr>
+        <th className="px-4 py-2">Pos</th>
+        <th className="px-4 py-2">Club</th>
+        <th className="px-4 py-2">Pts</th>
+        <th className="px-4 py-2">PG</th>
+        <th className="px-4 py-2">W</th>
+        <th className="px-4 py-2">L</th>
+        <th className="px-4 py-2">D</th>
+        <th className="px-4 py-2">GF</th>
+        <th className="px-4 py-2">GA</th>
+        <th className="px-4 py-2">GD</th>
+      </tr>
+    </thead>
+    <tbody>{tableRows}</tbody>
+  </table>
+</div>
+)}

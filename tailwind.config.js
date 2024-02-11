@@ -4,6 +4,9 @@ module.exports = {
   "./src/**/*.jsx",],
   theme: {
     extend: {
+      screens :{
+        'mb': '320px',
+      },
       colors: {
         "light-green": '#99D692',
         "dark-green": '#355420',
@@ -13,6 +16,15 @@ module.exports = {
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
       },
+      spacing: {
+        '36': '9rem',
+        '48': '12rem',
+        '60': '15rem',
+        '72': '18rem', 
+        '84': '21rem',
+        '96': '24rem',
+        '128': '32rem',
+      }
     },
   },
   plugins: [],
