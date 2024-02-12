@@ -118,7 +118,7 @@ export default function ClubPage() {
           <img
             src={teamIcon}
             alt={teamName}
-            style={{ "min-width": "50px", "min-height": "50px" }}
+            style={{ "maxWidth": "50px", "maxHeight": "50px" }}
           />{" "}
           {teamName}
         </td>
