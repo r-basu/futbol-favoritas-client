@@ -118,7 +118,7 @@ export default function ClubPage() {
           <img
             src={teamIcon}
             alt={teamName}
-            style={{ width: "50px", height: "50px" }}
+            style={{ "min-width": "50px", "min-height": "50px" }}
           />{" "}
           {teamName}
         </td>
@@ -138,13 +138,36 @@ export default function ClubPage() {
 <div className="mt-5">
   <div className="flex justify-center">
     <img src={clubData.crest} alt="Club Crest" className="w-30 h-30" />
-    <ScrollToTop smooth />
+    <ScrollToTop
+        smooth
+        color="#000"
+        top={100}
+        style={{
+          width: '40px',
+          height: '40px',
+          borderRadius: '50%',
+          fontSize: '16px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          '@media (min-width: 320px)': {
+            justifyContent: 'flex-start',
+            paddingLeft: '10px', 
+          },
+          animation: 'bounce 1s infinite alternate',
+          '@keyframes bounce': {
+            '0%': { transform: 'translateY(-5px)' },
+            '100%': { transform: 'translateY(5px)' },
+          },
+        }}
+       
+      />
   </div>
   <h1 className="text-xl text-center">{clubData.name}</h1>
   <p className="text-center">Founded: {clubData.founded}</p>
   <p className="text-center">Stadium: {clubData.venue}</p>
   <div className="lg:flex lg:justify-center lg:items-start lg:flex-row sm:flex sm:flex-col sm:justify-center sm:items-center">
-  <table className="lg:w-1/4 sm:w-1/4 mb-4 sm:mb-0">
+  <table className="lg:w-1/4 sm:w-1/4 mb-4 sm:mb-0 mb:mx-auto lg:mx-10">
     <thead>
       <tr>
         <th className="px-4 py-2">Name</th>
@@ -161,7 +184,7 @@ export default function ClubPage() {
     </tbody>
   </table>
   <div>
-  <table className="w-full sm:w-1/2 mx-auto">
+  <table className="lg:w-full sm:w-1/2 sm:mx-auto mb:w-1/4 mb:mx-auto lg:mx-10 mb:text-xs lg:text-lg">
     <caption className="text-center">Last 10 Matches</caption>
     <thead>
       <tr>
@@ -176,7 +199,7 @@ export default function ClubPage() {
       {clubSchedLast.matches.map((match) => (
         <tr key={match.id}>
           <td>{moment.utc(match.utcDate).local().format("YYYY-MM-DD")}</td>
-          <td><img src={match.competition.emblem} alt="Competition Emblem" className="w-6 h-6 inline-block" /></td>
+          <td><img src={match.competition.emblem} alt="Competition Emblem" className="lg:h-20 lg:w-20 mb:w-min-6 inline-block" /></td>
           <td>{match.homeTeam.name}</td>
           <td>{match.awayTeam.name}</td>
           <td>{match.score.fullTime.home} - {match.score.fullTime.away}</td>
@@ -185,7 +208,7 @@ export default function ClubPage() {
     </tbody>
   </table>
 
-  <table className="w-full sm:w-1/2 mx-auto mt-4">
+  <table className="lg:w-full sm:w-1/2 mx-auto lg:mx-10 mt-4 mb:w-1/4 mb:text-xs lg:text-lg">
     <caption className="text-center">Upcoming Matches</caption>
     <thead>
       <tr>
@@ -199,7 +222,7 @@ export default function ClubPage() {
       {clubSched.matches.map((match) => (
         <tr key={match.id}>
           <td>{moment.utc(match.utcDate).local().format("YYYY-MM-DD")}</td>
-          <td><img src={match.competition.emblem} alt="Competition Emblem" className="w-6 h-6 inline-block" /></td>
+          <td><img src={match.competition.emblem} alt="Competition Emblem" className="lg:w-20 lg:h-20 mb:w-min-6 inline-block" /></td>
           <td>{match.homeTeam.name}</td>
           <td>{match.awayTeam.name}</td>
         </tr>
@@ -209,21 +232,21 @@ export default function ClubPage() {
 </div>
 </div>
   {/* STANDINGS TABLE */}
-  <h1 className="text-xl text-center">Standings:</h1>
+  <h1 className="lg:text-xl text-center">Standings:</h1>
   <p className="text-center">Current Matchday: {clubStandings.season.currentMatchday}</p>
-  <table className="mx-auto">
+  <table className="lg:text-lg mb:text-xs mx-auto mb:w-1/2">
     <thead>
       <tr>
-        <th className="px-4 py-2">Pos</th>
-        <th className="px-4 py-2">Club</th>
-        <th className="px-4 py-2">Pts</th>
-        <th className="px-4 py-2">PG</th>
-        <th className="px-4 py-2">W</th>
-        <th className="px-4 py-2">L</th>
-        <th className="px-4 py-2">D</th>
-        <th className="px-4 py-2">GF</th>
-        <th className="px-4 py-2">GA</th>
-        <th className="px-4 py-2">GD</th>
+        <th className="lg:px-4 lg:py-2">Pos</th>
+        <th className="lg:px-4 lg:py-2">Club</th>
+        <th className="lg:px-4 lg:py-2">Pts</th>
+        <th className="lg:px-4 lg:py-2">PG</th>
+        <th className="lg:px-4 lg:py-2">W</th>
+        <th className="lg:px-4 lg:py-2">L</th>
+        <th className="lg:px-4 lg:py-2">D</th>
+        <th className="lg:px-4 lg:py-2">GF</th>
+        <th className="lg:px-4 lg:py-2">GA</th>
+        <th className="lg:px-4 lg:py-2">GD</th>
       </tr>
     </thead>
     <tbody>{tableRows}</tbody>
