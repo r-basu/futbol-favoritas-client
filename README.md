@@ -21,6 +21,6 @@ Deployed application: https://futbol-favoritas.netlify.app/
 Frontend setup:
 
 1. Run `npm run dev` to setup localhost. 
-2. Adjust deployment links to `https://localhost:3000` if running server locally too.
+2. Adjust deployment links to `https://localhost:3000` if running server locally, or to server link if running own hosted server.
 3. For deployment, can use Netlify to simply host and run the frontend client.
 
